@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML, CSS, and JavaScript files for SPA
+    deactivate server
+
+    Note right of browser: The SPA initializes and fetches initial data
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: Initial notes data
+    deactivate server
+
+    Note right of browser: User interacts with the SPA
+    Note right of browser: User may add, view, or modify notes
+    
+    % Optional: Adding more interactions based on user actions
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/notes (for adding new notes)
+    activate server
+    server-->>browser: Confirmation of note creation
+    deactivate server
+
+Explanation
+Initial Request: The browser requests the SPA assets (HTML, CSS, JavaScript) from the server.
+Server Response: The server responds with the necessary files to render the SPA.
+Initial Data Fetch: After the SPA is loaded, it fetches the initial notes data to display.
+User Interaction: The user can interact with the SPA by adding, viewing, or modifying notes. This may involve additional requests to the server.
