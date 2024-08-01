@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    Note right of server: The server receives the note data and saves it
+    server-->>browser: Confirmation of note creation
+    deactivate server
+    
+    Note right of browser: The browser updates the UI to show the new note
+
+Explanation
+POST Request: The browser sends a POST request to https://studies.cs.helsinki.fi/exampleapp/notes with the new note data.
+Server Processing: The server receives the note data, processes it, and saves it.
+Server Response: The server sends a confirmation response back to the browser.
+UI Update: The browser updates the UI to reflect the newly created note.
