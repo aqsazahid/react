@@ -5,6 +5,7 @@ import Unicafe from './part1/unicafe/unicafe'
 import CourseInfo from './part1/courseinfo/courseinfo'
 import Anecdotes from './part1/anecdotes/anecdotes'
 import Courses from './part2/courses/courses'
+import PhoneBook from './part2/phonebook/phoneBook'
 const App = () => {
   return (
     <div>
@@ -12,8 +13,10 @@ const App = () => {
      <CourseInfo />
       <Unicafe />
       <Anecdotes /> */}
-      <h1>Exercise part2</h1>
-      <Courses />
+      {/* <h1>Exercise part2</h1> */}
+      {/* <Courses /> */}
+      {/* Exercise part2b */}
+      <PhoneBook />
   </div>
   )
 }
