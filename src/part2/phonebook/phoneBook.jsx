@@ -1,11 +1,17 @@
 import React, { useState } from "react"
 const PhoneBook = () => {
     const [persons, setPersons] = useState([
-        { name: 'Arto Hellas' }
-      ]) 
-      const [newName, setNewName] = useState('')
+        { name: 'Arto Hellas', number: '033-43556566'
+        }
+    ]) 
+    const [newName, setNewName] = useState('');
+    const [newNumber, setNewNumber] = useState(0);
     const AddName = (event) => {
         setNewName(event.target.value)
+    }
+
+    const AddNumber = (event) => {
+        setNewNumber(event.target.value)
     }
 
     const AddPerson = (event) => {
@@ -14,6 +20,7 @@ const PhoneBook = () => {
         const AddName = names.includes(newName)
         const nameObject = {
             name: newName,
+            number: newNumber
         }
         if(AddName) {
             alert(`${newName} is already added to phonebook`)
@@ -29,6 +36,7 @@ const PhoneBook = () => {
             <div>
               name: <input onChange={ AddName }/>
             </div>
+            <div>number: <input onChange={ AddNumber} /></div>
             <div>
               <button type="submit">add</button>
             </div>
@@ -36,7 +44,7 @@ const PhoneBook = () => {
           <h2>Numbers</h2>
           {
             persons.map(item => (
-                <p key={item.name}>{item.name}</p>
+                <p key={item.name}>{item.name} {item.number}</p>
             ))
           }
         </div>
