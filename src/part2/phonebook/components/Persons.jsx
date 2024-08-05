@@ -4,7 +4,7 @@ const Persons = (props) => {
         <>
             {props.filterPersons.map(person => (
                 <div>
-                    <p key={person.id}>{person.name} {person.number}</p>
+                    <span key={person.id}>{person.name} {person.number}</span>
                     <button onClick={() => props.delete(person.id)}>delete</button>
                 </div>
             ))}

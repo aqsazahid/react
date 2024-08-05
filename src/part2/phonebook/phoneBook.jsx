@@ -36,20 +36,24 @@ const PhoneBook = () => {
 
     const addPerson = (event) => {
         event.preventDefault();
-        const names = persons.map(person => person.name);
-        const nameExists = names.includes(newName);
+        const person = persons.find(p => p.name === newName);
+        const nameObject = {
+            name: newName,
+            number: newNumber
+        };
 
-        if (nameExists) {
-            alert(`${newName} is already added to the phonebook`);
+        if (person) {
+            if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
+                noteService.update(person.id, nameObject).then(updatedPerson => {
+                    setPersons(persons.map(p => p.id !== person.id ? p : updatedPerson));
+                });
+            }
         } else {
-            const nameObject = {
-                name: newName,
-                number: newNumber
-            };
-            noteService.create(nameObject)
-            setPersons(persons.concat(nameObject));
-            setNewName('');
-            setNewNumber('');
+            noteService.create(nameObject).then(returnedPerson => {
+                setPersons(persons.concat(returnedPerson));
+                setNewName('');
+                setNewNumber('');
+            });
         }
     };
     const filteredPersons = persons.filter(person =>

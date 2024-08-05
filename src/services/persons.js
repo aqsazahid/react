@@ -27,7 +27,6 @@ const update = (id, newObject) => {
 }
 
 const remove = (id) => {
-  debugger
   const request = axios.delete(`${baseUrl}/${id}`);
   return request.then(response => response.data)
     .catch(error => {
