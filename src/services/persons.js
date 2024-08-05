@@ -10,7 +10,6 @@ const getAll = () => {
 }
 
 const create = (newObject)=> {
-    debugger
   const request = axios.post(baseUrl, newObject)
   return request.then(response => response.data)
   .catch(error => {
