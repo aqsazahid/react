@@ -6,6 +6,7 @@ import CourseInfo from './part1/courseinfo/courseinfo'
 import Anecdotes from './part1/anecdotes/anecdotes'
 import Courses from './part2/courses/courses'
 import PhoneBook from './part2/phonebook/phoneBook'
+import Countries from './part2/countries/countries'
 import Api from "./part2/phonebook/api"
 const App = () => {
   return (
@@ -17,7 +18,8 @@ const App = () => {
       {/* <h1>Exercise part2</h1> */}
       {/* <Courses /> */}
       {/* Exercise part2b */}
-      <PhoneBook />
+      {/* <PhoneBook /> */}
+      <Countries />
       {/* <Api /> */}
   </div>
   )
