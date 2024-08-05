@@ -4,7 +4,7 @@ const PersonForm = (props) => {
             <div>
               name: <input value={props.nameValue} onChange={ props.NameChange }/>
             </div>
-            <div>number: <input value={props.noValue} onChange={props.handleNumberChange} /></div>
+            <div>number: <input value={props.noValue} onChange={props.NoChange} /></div>
             <div>
               <button type="submit">add</button>
             </div>

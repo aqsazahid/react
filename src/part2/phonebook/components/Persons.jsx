@@ -2,10 +2,13 @@ import React from "react"
 const Persons = (props) => {
     return (
         <>
-        {props.filterPersons.map(person => (
-            <p key={person.name}>{person.name} {person.number}</p>
-        ))}
-    </>
+            {props.filterPersons.map(person => (
+                <div>
+                    <p key={person.id}>{person.name} {person.number}</p>
+                    <button onClick={() => props.delete(person.id)}>delete</button>
+                </div>
+            ))}
+        </>
     )
 }
 

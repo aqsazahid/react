@@ -17,8 +17,8 @@ const App = () => {
       {/* <h1>Exercise part2</h1> */}
       {/* <Courses /> */}
       {/* Exercise part2b */}
-      {/* <PhoneBook /> */}
-      <Api />
+      <PhoneBook />
+      {/* <Api /> */}
   </div>
   )
 }

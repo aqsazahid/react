@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import Filter from "./components/Filter"
 import PersonForm from "./components/PersonForm";
-import Persons from "./components/Persons"
+import Persons from "./components/Persons";
+import noteService from '../../services/persons';
 const PhoneBook = () => {
     const [persons, setPersons] = useState([
         { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -24,6 +25,15 @@ const PhoneBook = () => {
         setSearchQuery(event.target.value);
     };
 
+    const deletePerson = (id) => {
+        if (window.confirm('Do you really want to delete this record?')) {
+          noteService.remove(id)
+            .then(() => {
+              setPersons(persons.filter(person => person.id !== id));
+            });
+        }
+    };
+
     const addPerson = (event) => {
         event.preventDefault();
         const names = persons.map(person => person.name);
@@ -36,6 +46,7 @@ const PhoneBook = () => {
                 name: newName,
                 number: newNumber
             };
+            noteService.create(nameObject)
             setPersons(persons.concat(nameObject));
             setNewName('');
             setNewNumber('');
@@ -52,7 +63,7 @@ const PhoneBook = () => {
           <h3>Add a new</h3>
           <PersonForm NameChange={handleNameChange} nameValue={newName} submit={addPerson} noValue={newNumber} NoChange={handleNumberChange}/>
           <h3>Numbers</h3>
-            <Persons filterPersons = {filteredPersons} />
+            <Persons filterPersons = {filteredPersons} delete={ deletePerson}/>
         </div>
       )
 }
