@@ -4,7 +4,7 @@ import { useEffect,useState } from 'react'
 const Api = () =>{
     const [data,setData] = useState([])
     useEffect(() => {
-        const response = axios.get('http://localhost:3001/persons')
+        const response = axios.get('api/persons')
             .then(response => {
                 console.log(response.data)
                 setData(response.data)
