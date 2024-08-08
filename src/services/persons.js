@@ -12,17 +12,23 @@ const getAll = () => {
 
 const create = (newObject) => {
   return axios.post(baseUrl, newObject)
-    .then(response => response.data)
+    .then(response => {
+      return response.data;
+    })
     .catch(error => {
-      handleError(error);
+      return handleError(error);
     });
 };
 
+
 const update = (id, newObject) => {
   return axios.put(`${baseUrl}/${id}`, newObject)
-    .then(response => response.data)
+    .then(response => {
+      return response.data
+    }
+    )
     .catch(error => {
-      handleError(error);
+      return handleError(error);
     });
 };
 
@@ -36,15 +42,20 @@ const remove = (id) => {
 
 const handleError = (error) => {
   if (error.response) {
-    if (error.response.status === 404) {
-      return Promise.reject(new Error('Resource not found'));
+    // If response has data, use the error message from the server
+    if (error.response.data && error.response.data.error) {
+      return Promise.reject(new Error(error.response.data.error));
     }
+    // Otherwise, provide a general error message
     return Promise.reject(new Error('Server responded with error: ' + error.response.statusText));
   } else if (error.request) {
+    // If no response was received
     return Promise.reject(new Error('No response received from the server'));
   } else {
+    // If there was an error in setting up the request
     return Promise.reject(new Error('Error in request setup: ' + error.message));
   }
 };
+
 
 export default { getAll, create, update, remove };

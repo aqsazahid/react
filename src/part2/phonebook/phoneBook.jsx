@@ -47,43 +47,46 @@ const PhoneBook = () => {
     };
 
     const addPerson = (event) => {
-        event.preventDefault();
-        const person = persons.find(p => p.name === newName);
-        const nameObject = {
-          name: newName,
-          number: newNumber
-        };
-        if (person) {
-          if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
-            personService.update(person.id, nameObject).then(updatedPerson => {
-              setPersons(persons.map(p => p.id !== person.id ? p : updatedPerson));
-              showNotification(`Updated ${newName}'s number`, 'success');
-            }).catch(error => {
-              if (error.message === 'Resource not found') {
-                showNotification('This contact has already been removed from the server', 'error');
-              } else {
-                showNotification('Failed to update the number: ' + error.message, 'error');
-              }
-            });
-          }
-        } else {
-          personService.create(nameObject).then(returnedPerson => {
-            if (!returnedPerson) {
-              throw new Error('Unexpected response from server');
-            }
-            setPersons(persons.concat(returnedPerson));
+      event.preventDefault();
+      const person = persons.find(p => p.name === newName);
+      const nameObject = {
+        name: newName,
+        number: newNumber
+      };
+    
+      if (person) {
+        if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
+          personService.update(person.id, nameObject).then(updatedPerson => {
+            setPersons(persons.map(p => p.id !== person.id ? p : updatedPerson));
             setNewName('');
             setNewNumber('');
-            showNotification(`Added ${newName}`, 'success');
+            showNotification(`Updated ${newName}'s number`, 'success');
           }).catch(error => {
             const errorMessage = error.response && error.response.data && error.response.data.error
               ? error.response.data.error
-              : 'Failed to add the person';
-      
+              : 'Failed to update the number: ' + error.message;
             showNotification(errorMessage, 'error');
           });
         }
+      } else {
+        personService.create(nameObject).then(returnedPerson => {
+          if (!returnedPerson) {
+            throw new Error('Unexpected response from server');
+          }
+          setPersons(persons.concat(returnedPerson));
+          setNewName('');
+          setNewNumber('');
+          showNotification(`Added ${newName}`, 'success');
+        }).catch(error => {
+          const errorMessage = error.response && error.response.data && error.response.data.error
+            ? error.response.data.error
+            : 'Failed to add the person: ' + error.message;
+          showNotification(errorMessage, 'error');
+        });
+      }
     };
+    
+    
     const showNotification = (message, type) => {
         setNotification(message);
         setNotificationType(type);
