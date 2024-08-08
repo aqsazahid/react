@@ -53,7 +53,6 @@ const PhoneBook = () => {
           name: newName,
           number: newNumber
         };
-    
         if (person) {
           if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
             personService.update(person.id, nameObject).then(updatedPerson => {
@@ -69,12 +68,19 @@ const PhoneBook = () => {
           }
         } else {
           personService.create(nameObject).then(returnedPerson => {
+            if (!returnedPerson) {
+              throw new Error('Unexpected response from server');
+            }
             setPersons(persons.concat(returnedPerson));
             setNewName('');
             setNewNumber('');
             showNotification(`Added ${newName}`, 'success');
           }).catch(error => {
-            showNotification('Failed to add the person: ' + error.message, 'error');
+            const errorMessage = error.response && error.response.data && error.response.data.error
+              ? error.response.data.error
+              : 'Failed to add the person';
+      
+            showNotification(errorMessage, 'error');
           });
         }
     };
